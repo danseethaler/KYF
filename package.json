@@ -1,0 +1,20 @@
+{
+  "name": "knowyourfamily",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "family",
+    "genealogy"
+  ],
+  "author": "Dan Seethaler",
+  "license": "ISC",
+  "dependencies": {
+    "familysearch-javascript-sdk": "^1.0.0",
+    "q": "^1.4.1",
+    "request": "^2.58.0"
+  }
+}
