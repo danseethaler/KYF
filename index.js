@@ -1,15 +1,34 @@
 var FS = require('familysearch-javascript-sdk'),
 	request = require('request'),
-	q = require('q');
+	q = require('q'),
+	express = require('express'),
+	bodyParser = require("body-parser");
 
-var client = new FamilySearch({
-	client_id: 'YOUR_CLIENT_ID_GOES_HERE',
-	environment: 'sandbox',
-	access_token: 'SOME_ACCESS_TOKEN',
-	http_function: request,
-	deferred_function: q.defer
+var app = express();
+
+app.use(express.static('static'));
+
+app.use(bodyParser.urlencoded({
+	extended: false
+}));
+
+app.post('/signedOn', function (req, res) {
+
+	console.log(req.body.accessToken);
+
+	var client = new FS({
+		client_id: 'a02j0000007rShWAAU',
+		environment: 'sandbox',
+		access_token: req.body.accessToken,
+		http_function: request,
+		deferred_function: q.defer
+	});
+
+	client.getCurrentUser().then(function (response) {
+		var user = response.getUser();
+		console.log('Hellooo0o ');
+		console.log(user);
+	});
 });
 
-client.getCurrentUser().then(function (response) {
-	// now you have the response
-});
+app.listen(8888);
