@@ -1,48 +1,61 @@
 <!DOCTYPE html>
-
 <html>
 
 <head>
-    <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
-    <script src="//rootsdev.org/familysearch-javascript-sdk/familysearch-javascript-sdk.js"></script>
+    <meta charset="utf-8">
+    <title>Web Developer</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" title="" charset="utf-8">
+    <link rel="stylesheet" href="main.css" charset="utf-8">
 </head>
 
 <body>
-    <script>
-        var fsClient = new FamilySearch({
-            client_id: 'a02j0000007rShWAAU',
-            environment: 'sandbox',
-            redirect_uri: 'http://localhost:8888/',
-            http_function: $.ajax,
-            deferred_function: $.Deferred,
-            save_access_token: true,
-            auto_expire: true,
-            auto_signin: true
-        });
+    <div class="slice white" id="homeContent">
+        <div class="container">
+            <nav>
+                <a href="#who">Who</a>
+                <a href="#timeline">Timeline</a>
+                <a href="#where">Where</a>
+                <a href="#credit">Credit</a>
+            </nav>
 
-        window.run = function() {
-            fsClient.getCurrentUser().then(function(response) {
-                $.ajax({
-                    type: 'POST',
-                    url: 'http://localhost:8888/signedOn',
-                    data: {
-                        accessToken: fsClient.settings.accessToken
-                        }
-                });
+            <div class="content">
+                <h1>Know Your Ancestors</h1>
+                <h4>Get to know those who have gone before.</h4>
 
-                for (var property in response.getUser()) {
-                    if (response.getUser().hasOwnProperty(property)) {
-                        console.log(property, " : ", response.getUser()[property]);
-                    }
-                }
+                <input type="button" name="name" class="btn" id="getStarted" value="Get Started">
+            </div>
 
-                $('#output').append('Hell-o ' + response.getUser().givenName.toLowerCase() + ' ' + response.getUser().familyName.toLowerCase());
-            });
-        };
-    </script>
+        </div>
+    </div>
+    <div class="slice green" id="who">
+        <div class="container">
+            <div class="example">
+                <img src="images/whoIsImage.jpg" alt="" />
+            </div>
+        </div>
+    </div>
+    <div class="slice white">
+        <a name="timeline"></a>
+        <div class="container">
+        </div>
+    </div>
+    <div class="slice green">
+        <a name="where"></a>
+        <div class="container">
+        </div>
+    </div>
+    <div class="slice white">
+        <div class="slice white">
+            <a name="credit"></a>
+            <div class="container">
+            </div>
+        </div>
+    </div>
+    <script src="resources/jquery-2.0.3.min.js" charset="utf-8"></script>
+    <script src="//rootsdev.org/familysearch-javascript-sdk/familysearch-javascript-sdk.js"></script>
+    <script src="resources/handlebars-v3.0.3.js" charset="utf-8"></script>
+    <script src="script.js" charset="utf-8"></script>
 
-    <a href="#" onclick="run()">Run</a>
-    <div id="output"></div>
 </body>
 
 </html>

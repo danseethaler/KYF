@@ -26,28 +26,31 @@ app.post('/signedOn', function (req, res) {
 	});
 
 	client.getCurrentUser().then(function (response) {
+		console.log("response : ");
+		console.log(response);
 		var user = response.getUser();
 
-		var thisUser = {};
+		var thisUser = {
+			contactName: user.contactName,
+			helperAccessPin: user.helperAccessPin,
+			givenName: user.givenName,
+			familyName: user.familyName,
+			email: user.email,
+			country: user.country,
+			gender: user.gender,
+			birthDate: user.birthDate,
+			preferredLanguage: user.preferredLanguage,
+			displayName: user.displayName,
+			personId: user.personId,
+			treeUserId: user.treeUserId
+		};
 
-		thisUser.contactName = user.contactName;
-		thisUser.helperAccessPin = user.helperAccessPin;
-		thisUser.givenName = user.givenName;
-		thisUser.familyName = user.familyName;
-		thisUser.email = user.email;
-		thisUser.country = user.country;
-		thisUser.gender = user.gender;
-		thisUser.birthDate = user.birthDate;
-		thisUser.preferredLanguage = user.preferredLanguage;
-		thisUser.displayName = user.displayName;
-		thisUser.personId = user.personId;
-		thisUser.treeUserId	= user.treeUserId;
-
-		fs.writeFile('user.json', JSON.stringify(thisUser, null, 4), function (err) {
+		fs.writeFile(thisUser.personId + '.json', JSON.stringify(thisUser, null, 4), function (err) {
 			console.log('File successfully written.');
 		})
 
 	});
 });
 
+console.log("Listening on port 8888");
 app.listen(8888);

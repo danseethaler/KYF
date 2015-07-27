@@ -1,0 +1,57 @@
+body, html {
+    padding: 0px;
+    margin: 0px;
+}
+
+.slice {
+    height: 700px;
+}
+
+.green {
+    background-color: #575756;
+}
+
+.white {
+    background-color: #fff;
+}
+
+
+#homeContent {
+    background-image: url("images/trees-background.png");
+    background-repeat: no-repeat;
+    background-position: right bottom;
+}
+
+.container {
+    max-width: 1000px;
+    padding: 20px;
+    height: 100%;
+}
+
+.content {
+    margin-top: 200px;
+}
+
+.example {
+    height: calc(100% - 50px);
+    width: calc(450px - 50px);
+    text-align: center;
+    border-radius: 3px;
+    background-color: white;
+    padding: 5px;
+}
+
+nav {
+    text-align: center;
+}
+nav a {
+    padding-left: 30px
+}
+
+button{
+    margin-top: 98px;
+}
+
+img {
+    max-width: 300px;
+}

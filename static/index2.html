@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <link rel="stylesheet" href="resources/bootstrap.min.css">
+    <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="//rootsdev.org/familysearch-javascript-sdk/familysearch-javascript-sdk.js"></script>
+</head>
+
+<body>
+    <script>
+        var fsClient = new FamilySearch({
+            client_id: 'a02j0000007rShWAAU',
+            environment: 'sandbox',
+            redirect_uri: 'http://localhost:8888/',
+            http_function: $.ajax,
+            deferred_function: $.Deferred,
+            save_access_token: true,
+            auto_expire: true,
+            auto_signin: true   
+        });
+
+        window.run = function() {
+            fsClient.getCurrentUser().then(function(response) {
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://localhost:8888/signedOn',
+                    data: {
+                        accessToken: fsClient.settings.accessToken
+                        }
+                });
+
+                for (var property in response.getUser()) {
+                    if (response.getUser().hasOwnProperty(property)) {
+                        console.log(property, " : ", response.getUser()[property]);
+                    }
+                }
+
+                $('#output').append('Hell-o ' + response.getUser().givenName.toLowerCase() + ' ' + response.getUser().familyName.toLowerCase());
+            });
+        };
+    </script>
+    <link src="" charset="utf-8"></script>
+
+    <a href="#" onclick="run()">Login</a>
+    <div id="output"></div>
+</body>
+
+</html>
