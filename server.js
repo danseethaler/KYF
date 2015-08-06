@@ -1,3 +1,5 @@
+
+// initialize the variables that hold the node dependencies
 var FamilySearch = require('familysearch-javascript-sdk'),
 	request = require('request'),
 	q = require('q'),
@@ -5,18 +7,26 @@ var FamilySearch = require('familysearch-javascript-sdk'),
 	express = require('express'),
 	bodyParser = require("body-parser");
 
+// Setup the app variable to equal express
 var app = express();
 
+// Tell expressjs to use the static mode instead of
+// a templating engine. (Using angularjs for the templating)
 app.use(express.static('static'));
 
+// Setup the bodyParser to access to the properties
+// on the HTTP POST requests
 app.use(bodyParser.urlencoded({
 	extended: false
 }));
 
+// Listen for a POST request to the URL/signedOn URL
 app.post('/signedOn', function (req, res) {
 
+	// Log the access token to the console
 	console.log(req.body.accessToken);
 
+	// Create a new FamilySearch object (instance) in node
 	var client = new FamilySearch({
 		client_id: 'a02j0000007rShWAAU',
 		environment: 'sandbox',
@@ -25,11 +35,16 @@ app.post('/signedOn', function (req, res) {
 		deferred_function: q.defer
 	});
 
+	// Call the getCurrentUser method on the client
+	// to get information about the user
+	// TODO: This is already being done in the Angular app
+	// TODO: should be removed at some point
 	client.getCurrentUser().then(function (response) {
-		console.log("response : ");
-		console.log(response);
+
+		// get the user data and set it to the user variable.
 		var user = response.getUser();
 
+		// Create a new user object
 		var thisUser = {
 			contactName: user.contactName,
 			helperAccessPin: user.helperAccessPin,
@@ -45,7 +60,8 @@ app.post('/signedOn', function (req, res) {
 			treeUserId: user.treeUserId
 		};
 
-		fs.writeFile(thisUser.personId + '.json', JSON.stringify(thisUser, null, 4), function (err) {
+		//
+		fs.writeFile('users/' + thisUser.personId + '.json', JSON.stringify(thisUser, null, 4), function (err) {
 			console.log('File successfully written.');
 		})
 
@@ -54,3 +70,7 @@ app.post('/signedOn', function (req, res) {
 
 console.log("Listening on port 8888");
 app.listen(8888);
+
+// FS Attempts
+// fsClient.getAncestry('KW4F-Q7D').then(function(data){console.log(data)})
+//
